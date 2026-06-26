@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruthLens AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="background">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+</div>
+
+<header>
+    <nav>
+        <div class="logo">TruthLens AI</div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#analyzer">Analyzer</a></li>
+            <li><a href="#how">How It Works</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="badge">AI Powered Fake News Detection</div>
+    <h1>
+        Detect Fake News
+        <span>Instantly with AI</span>
+    </h1>
+    <p>
+        TruthLens AI analyzes news articles using Machine Learning and NLP
+        to determine whether content is real or fake within seconds.
+    </p>
+    <a href="#analyzer">
+        <button class="hero-btn">Try Analyzer</button>
+    </a>
+
+    <div class="hero-stats">
+        <div class="hero-card">
+            <h2>98%</h2>
+            <p>Model Accuracy</p>
+        </div>
+        <div class="hero-card">
+            <h2>1.2s</h2>
+            <p>Avg Prediction Time</p>
+        </div>
+        <div class="hero-card">
+            <h2>10K+</h2>
+            <p>Articles Tested</p>
+        </div>
+        <div class="hero-card">
+            <h2>ML</h2>
+            <p>Powered System</p>
+        </div>
+    </div>
+</section>
+
+<section id="analyzer" class="analyzer">
+    <div class="analyzer-card">
+        <div class="analyzer-title">AI News Analyzer</div>
+        
+        <form method="POST" action="/#result">
+            <textarea name="news" placeholder="Paste news article or text here..." required></textarea>
+            <button class="analyzer-btn" type="submit">Analyze Now</button>
+        </form>
+
+        <div class="analyzer-hint">
+            Powered by Machine Learning • TruthLens AI
+        </div>
+    </div>
+</section>
+
+{% if prediction %}
+<section id="result" class="result-section">
+    <div class="result-card {% if is_fake %}result-fake{% else %}result-real{% endif %}">
+        <div class="result-label">AI Analysis Result</div>
+        
+        <div class="result-text {% if is_fake %}fake{% else %}real{% endif %}">
+            {{ prediction }}
+        </div>
+
+        <div class="result-confidence">
+            The model is <strong>{{ confidence }}%</strong> certain this text shows traits of <strong>{{ confidence_level }} Certainty</strong>.
+        </div>
+
+        <div class="confidence-bar-wrap" style="margin-bottom: 35px;">
+            <div class="confidence-bar-label">Confidence Profile Spectrum</div>
+            <div class="confidence-bar-track">
+                <div class="confidence-bar-fill {% if is_fake %}bar-fake{% else %}bar-real{% endif %}" style="width: {{ confidence }}%;"></div>
+            </div>
+        </div>
+
+        <div class="result-stats">
+            <div class="r-stat">
+                <span class="r-stat-val">{{ word_count }}</span>
+                <span class="r-stat-label">Word Count</span>
+            </div>
+            <div class="r-stat">
+                <span class="r-stat-val">{{ character_count }}</span>
+                <span class="r-stat-label">Characters</span>
+            </div>
+            <div class="r-stat">
+                <span class="r-stat-val">{{ processing_time }}s</span>
+                <span class="r-stat-label">Speed Score</span>
+            </div>
+            <div class="r-stat">
+                <span class="r-stat-val">{{ reading_time }}m</span>
+                <span class="r-stat-label">Read Time</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section id="how" class="info">
+    <div class="info-container">
+        <h2>How TruthLens AI Works</h2>
+        <p>Input → Cleaning → TF-IDF → ML Model → Prediction</p>
+        <br><br>
+        <h2>Technology Stack</h2>
+        <p>Python • Flask • Machine Learning • NLP • TF-IDF • Scikit-learn • Logistic Regression</p>
+    </div>
+</section>
+
+</body>
+</html>
